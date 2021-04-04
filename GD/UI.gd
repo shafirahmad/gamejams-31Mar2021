@@ -13,23 +13,25 @@ func show_message(text):
 	$MessageLabel.show()
 	$MessageTimer.start()
 	
-	
+func remove_rect():
+	$ColorRect.hide()
 
 func game_over():
+	$ColorRect.show()
 	if myscore > 100:
-		show_message("You WIN!")
+		show_message("You have inherited the TREASURE!\n\nYou are RICH!")
 	else:
-		show_message("Unfortunately you don't get the inheritance")
-		
+		show_message("Unfortunately you don't get the Treasure!\n\nYou can try again.")
 	yield($MessageTimer, "timeout")
+	$ColorRect.show()
 	$StartButton.show()
-	$MessageLabel.text = "You have unexpectedly inherited a gazillion\n" \
-	+ "dollars when your uncle suddenly passed away.\n\n" \
-	+ "His will states that you have to pass a test first\n" \
-	+ "before you are eligible for the funds.\n\n" \
+	$MessageLabel.text = "You have unexpectedly inherited a treasure\n" \
+	+ "chest when your uncle suddenly passed away.\n\n" \
+	+ "His will states that you have to pass a sailing test\n" \
+	+ "before you are eligible to receive it.\n\n" \
 	+ "Being an avid sailor, he has decreed that you navigate\n" \
 	+ "the Suez canal and survive for more than 100 seconds.\n\n" \
-	+ "Only then can you lay claim to the funds.\n\n" \
+	+ "Only then can you lay claim to the treasure.\n\n" \
 	+ "Good Luck Sailor\n\n" \
 	+ "-----\n\n" \
 	+ "Use Arrow Keys to Move"
@@ -52,11 +54,12 @@ func _ready():
 
 func _on_MessageTimer_timeout():
 	$MessageLabel.hide()
+	$ColorRect.hide()
 	pass # Replace with function body.
 
 
 func _on_StartButton_pressed():
 	$StartButton.hide()
+	$ColorRect.hide()
 	emit_signal("start_game")
 	
-	pass # Replace with function body.

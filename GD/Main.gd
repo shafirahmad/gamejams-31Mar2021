@@ -1,8 +1,10 @@
 extends Node
 
+export (PackedScene) var BigShip
 export (PackedScene) var Ship
+
 var score
-signal bigship
+#signal bigship
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -21,6 +23,7 @@ func _ready():
 
 func game_over():
 	get_tree().call_group("ships", "queue_free")
+	get_tree().call_group("bigships", "queue_free")
 	$ScoreTimer.stop()
 	$ShipTimer.stop()
 	$UI.game_over()
@@ -34,6 +37,7 @@ func new_game():
 	$StartTimer.start()
 	$UI.show_message("Get Ready")
 	$UI.update_score(score)
+	$UI.remove_rect()
 	$BGMusic2.play()
 	$BGMusic1.stop()
 
@@ -43,7 +47,7 @@ func _on_ShipTimer_timeout():
 	add_child(ship)
 	ship.position.x = rand_range(50, 350)
 	ship.position.y = 0 
-	ship.linear_velocity = Vector2(0,rand_range(ship.min_speed, ship.max_speed))
+	#ship.linear_velocity = Vector2(0,rand_range(ship.min_speed, ship.max_speed))
 
 func _on_ScoreTimer_timeout():
 	score +=1
@@ -53,3 +57,12 @@ func _on_ScoreTimer_timeout():
 func _on_StartTimer_timeout():
 	$ShipTimer.start()
 	$ScoreTimer.start()
+	$BigShipTimer.start()
+
+
+func _on_BigShipTimer_timeout():
+	var bigship = BigShip.instance()
+	add_child(bigship)
+	bigship.position.x = rand_range(100,300)
+	bigship.position.y = -100
+	#bigship.linear_velocity = Vector2(0,rand_range(bigship.min_speed, bigship.max_speed))

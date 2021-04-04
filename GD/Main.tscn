@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://audio/sfxr_powerup2.wav" type="AudioStream" id=6]
 [ext_resource path="res://audio/10491.ogg" type="AudioStream" id=7]
 [ext_resource path="res://audio/10496.ogg" type="AudioStream" id=8]
+[ext_resource path="res://BigShip.tscn" type="PackedScene" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -19,6 +20,7 @@ animations = [ {
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
+BigShip = ExtResource( 9 )
 Ship = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -36,10 +38,13 @@ __meta__ = {
 [node name="ShipTimer" type="Timer" parent="."]
 wait_time = 0.8
 
+[node name="BigShipTimer" type="Timer" parent="."]
+wait_time = 15.0
+
 [node name="ScoreTimer" type="Timer" parent="."]
 
 [node name="StartTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.8
 one_shot = true
 
 [node name="PlayerStartPos" type="Position2D" parent="."]
@@ -56,7 +61,7 @@ frames = SubResource( 1 )
 
 [node name="BGMusic1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
-volume_db = -10.667
+volume_db = -16.0
 
 [node name="BGMusic2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
@@ -67,6 +72,7 @@ stream = ExtResource( 6 )
 volume_db = -5.333
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="ShipTimer" to="." method="_on_ShipTimer_timeout"]
+[connection signal="timeout" from="BigShipTimer" to="." method="_on_BigShipTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="start_game" from="UI" to="." method="new_game"]
