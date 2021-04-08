@@ -1,9 +1,5 @@
 GD/.import/
-GD/.import/*.*
-GD/.import/*
-GD/dodge_assets/
-GD/dodge_assets/*.*
-GD/dodge_assets/*/*
-GD/dodge_assets/*/*.*
+dodge_assets/
+export/
 gfx/
 html/
